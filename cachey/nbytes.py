@@ -34,5 +34,7 @@ def nbytes(o):
         return _array(o)
     elif hasattr(o, 'nbytes'):
         return o.nbytes
+    elif isinstance(o, (list, tuple)):
+        return sum(nbytes(x) for x in o)    
     else:
         return sys.getsizeof(o)
