@@ -4,8 +4,8 @@ Caching for Analytic Computations
 Humans repeat stuff.  Caching helps.
 
 Normal caching policies like LRU aren't well suited for analytic computations
-where both the cost of recomputation and the cost of storge routinely vary by
-one milllion or more.  Consider the following computations
+where both the cost of recomputation and the cost of storage routinely vary by
+one million or more.  Consider the following computations
 
 ```python
 # Want this
