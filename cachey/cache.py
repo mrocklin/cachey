@@ -125,7 +125,12 @@ class Cache(object):
     def _shrink_one(self):
         key, score = self.heap.popitem()
         self.retire(key)
-
+        
+    def resize(self, available_bytes):
+        """ Resize the cache. Will fit the cache into available_bytes by calling `shrink()`. """
+        self.available_bytes = available_bytes
+        self.shrink()
+        
     def shrink(self):
         """ Retire keys from the cache until we're under bytes budget
 
