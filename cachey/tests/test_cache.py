@@ -23,6 +23,28 @@ def test_cache():
     assert not c.data
     assert not c.heap
 
+def test_cache_resize():
+    c = Cache(available_bytes=nbytes(1) * 3)
+
+    c.put('x', 1, 10)
+    assert c.get('x') == 1
+    assert 'x' in c
+
+    c.put('a', 1, 10)
+    c.put('b', 1, 10)
+    c.put('c', 1, 10)
+    assert set(c.data) == set('xbc')
+    c.put('d', 1, 10)
+    assert set(c.data) == set('xcd')
+
+    # resize will shrink
+    c.resize(available_bytes=nbytes(1) * 1)
+
+    assert set(c.data) == set('x')
+
+    c.resize(available_bytes=nbytes(1) * 10)
+
+    assert set(c.data) == set('x')
 
 def test_cache_scores_update():
     c = Cache(available_bytes=nbytes(1) * 2)
