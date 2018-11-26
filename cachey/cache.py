@@ -127,7 +127,10 @@ class Cache(object):
         self.retire(key)
         
     def resize(self, available_bytes):
-        """ Resize the cache. Will fit the cache into available_bytes by calling `shrink()`. """
+        """ Resize the cache. 
+            
+            Will fit the cache into available_bytes by calling `shrink()`.
+        """
         self.available_bytes = available_bytes
         self.shrink()
         
