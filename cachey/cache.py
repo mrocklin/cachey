@@ -123,8 +123,12 @@ class Cache(object):
         self.total_bytes -= self.nbytes.pop(key)
 
     def _shrink_one(self):
-        key, score = self.heap.popitem()
+        try:
+            key, score = self.heap.popitem()
+        except IndexError:
+            return
         self.retire(key)
+        
         
     def resize(self, available_bytes):
         """ Resize the cache. 
