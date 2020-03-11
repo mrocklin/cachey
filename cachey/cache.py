@@ -8,7 +8,7 @@ def cost(nbytes, time):
 
 
 def memo_key(args, kwargs):
-    result = (args, frozenset(kwargs.items()))
+    result = (args, frozenset(list(kwargs.items())))
     try:
         hash(result)
     except TypeError:
@@ -157,7 +157,7 @@ class Cache(object):
         while self.data:
             self._shrink_one()
 
-    def __nonzero__(self):
+    def __bool__(self):
         return not not self.data
 
     def memoize(self, func, key=memo_key):
