@@ -22,6 +22,9 @@ def nbytes(o):
     >>> import numpy as np
     >>> nbytes(np.ones(1000, dtype='i4'))
     4000
+    
+    >>> nbytes([123]) # doctest: +SKIP
+    100
     """
     name = type(o).__module__ + '.' + type(o).__name__
 
@@ -34,5 +37,7 @@ def nbytes(o):
         return _array(o)
     elif hasattr(o, 'nbytes'):
         return o.nbytes
+    elif isinstance(o, (list, tuple)):
+        return sys.getsizeof(o) + sum(nbytes(x) for x in o)    
     else:
         return sys.getsizeof(o)
